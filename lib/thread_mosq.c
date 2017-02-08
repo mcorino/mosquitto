@@ -14,8 +14,6 @@ Contributors:
    Roger Light - initial implementation and documentation.
 */
 
-#include <config.h>
-
 #ifndef WIN32
 #include <unistd.h>
 #endif

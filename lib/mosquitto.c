@@ -386,7 +386,7 @@ void mosquitto_destroy(struct mosquitto *mosq)
 int mosquitto_socket(struct mosquitto *mosq)
 {
 	if(!mosq) return INVALID_SOCKET;
-	return mosq->sock;
+	return (int)mosq->sock;
 }
 
 static int _mosquitto_connect_init(struct mosquitto *mosq, const char *host, int port, int keepalive, const char *bind_address)
@@ -853,7 +853,7 @@ int mosquitto_loop(struct mosquitto *mosq, int timeout, int max_packets)
 	FD_ZERO(&readfds);
 	FD_ZERO(&writefds);
 	if(mosq->sock != INVALID_SOCKET){
-		maxfd = mosq->sock;
+		maxfd = (int)mosq->sock;
 		FD_SET(mosq->sock, &readfds);
 		pthread_mutex_lock(&mosq->current_out_packet_mutex);
 		pthread_mutex_lock(&mosq->out_packet_mutex);
@@ -899,7 +899,7 @@ int mosquitto_loop(struct mosquitto *mosq, int timeout, int max_packets)
 		 * call to publish() etc. */
 		FD_SET(mosq->sockpairR, &readfds);
 		if(mosq->sockpairR > maxfd){
-			maxfd = mosq->sockpairR;
+			maxfd = (int)mosq->sockpairR;
 		}
 	}
 

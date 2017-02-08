@@ -17,8 +17,6 @@ Contributors:
 #ifndef _MOSQUITTO_INTERNAL_H_
 #define _MOSQUITTO_INTERNAL_H_
 
-#include <config.h>
-
 #ifdef WIN32
 #  include <winsock2.h>
 #endif
@@ -29,6 +27,8 @@ Contributors:
 #  include <time.h>
 #endif
 #include <stdlib.h>
+
+#include <config.h>
 
 #if defined(WITH_THREADING) && !defined(WITH_BROKER)
 #  include <pthread.h>
