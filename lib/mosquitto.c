@@ -279,7 +279,9 @@ void _mosquitto_destroy(struct mosquitto *mosq)
 
 #ifdef WITH_THREADING
 	if(mosq->threaded == mosq_ts_self && !pthread_equal(mosq->thread_id, pthread_self())){
+#   ifndef WITHOUT_PTHREAD_CANCEL
 		pthread_cancel(mosq->thread_id);
+#   endif
 		pthread_join(mosq->thread_id, NULL);
 		mosq->threaded = mosq_ts_none;
 	}

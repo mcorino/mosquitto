@@ -60,9 +60,13 @@ int mosquitto_loop_stop(struct mosquitto *mosq, bool force)
 #endif
 	}
 	
+#ifdef WITHOUT_PTHREAD_CANCEL
+    (void)force;
+#else
 	if(force){
 		pthread_cancel(mosq->thread_id);
 	}
+#endif
 	pthread_join(mosq->thread_id, NULL);
 	mosq->thread_id = pthread_self();
 	mosq->threaded = mosq_ts_none;

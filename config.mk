@@ -177,7 +177,11 @@ ifeq ($(WITH_TLS),yes)
 endif
 
 ifeq ($(WITH_THREADING),yes)
-	LIB_LIBS:=$(LIB_LIBS) -lpthread
+	ifneq ($(UNAME),ANDROID)
+		LIB_LIBS:=$(LIB_LIBS) -lpthread
+	else
+		LIB_CFLAGS:=$(LIB_CFLAGS) -DWITHOUT_PTHREAD_CANCEL
+	endif
 	LIB_CFLAGS:=$(LIB_CFLAGS) -DWITH_THREADING
 endif
 
