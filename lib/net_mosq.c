@@ -619,7 +619,7 @@ int _mosquitto_socket_connect_step3(struct mosquitto *mosq, const char *host, ui
 		}
 
 		SSL_set_ex_data(mosq->ssl, tls_ex_index_mosq, mosq);
-		bio = BIO_new_socket((int)sock, BIO_NOCLOSE);
+		bio = BIO_new_socket(mosq->sock, BIO_NOCLOSE);
 		if(!bio){
 			COMPAT_CLOSE(mosq->sock);
 			return MOSQ_ERR_TLS;
